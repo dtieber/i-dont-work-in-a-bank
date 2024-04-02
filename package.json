@@ -5,6 +5,7 @@
   "description": "An example of a gRPC application that demonstrates the interaction between a bank and a customer’s wallet",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.12.2",
     "typescript": "^5.4.3"
   }
