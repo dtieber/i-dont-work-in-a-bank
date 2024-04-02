@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint . --fix --ext .ts --cache --max-warnings 0",
+    "run:client": "node dist/client/client.js",
     "run:server": "node dist/server/server.js",
     "test": "jest"
   },
