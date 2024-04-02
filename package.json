@@ -9,7 +9,8 @@
     "lint": "eslint . --fix --ext .ts --cache --max-warnings 0"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.10.5"
+    "@grpc/grpc-js": "^1.10.5",
+    "pino": "^8.19.0"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^1.5.4",
