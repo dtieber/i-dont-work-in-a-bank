@@ -12,3 +12,14 @@ message Transfer {
   string text = 5;
   google.protobuf.Timestamp created_at = 6;
 }
+
+message CreateTransferRequest {
+  string sender = 2;
+  string receiver = 3;
+  float amount = 4;
+  string text = 5;
+}
+
+message CreateTransferResponse {
+  Transfer transfer = 1;
+}
