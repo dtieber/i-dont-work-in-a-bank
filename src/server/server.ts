@@ -1,6 +1,9 @@
 import { Server, ServerCredentials } from '@grpc/grpc-js'
 import { pino } from 'pino'
 
+import { TransferServiceService } from '../generated/transfer'
+import { getTransferServiceServer } from './getTransferServiceServer'
+
 const server = new Server()
 
 const HOST = process.env.HOST ?? '0.0.0.0'
@@ -18,6 +21,8 @@ const logger = pino({
     },
   },
 })
+
+server.addService(TransferServiceService, getTransferServiceServer())
 
 server.bindAsync(
   address,
