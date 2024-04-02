@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package transfer;
+
+import "google/protobuf/timestamp.proto";
+
+message Transfer {
+  int32 id = 1;
+  string sender = 2;
+  string receiver = 3;
+  float amount = 4;
+  string text = 5;
+  google.protobuf.Timestamp created_at = 6;
+}
