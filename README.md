@@ -6,3 +6,10 @@ This repository contains an example of a gRPC application that demonstrates the 
 
 * Node 20
 * Protoc
+
+
+##### Testing
+
+You can use [gRPCurl](https://github.com/fullstorydev/grpcurl) for testing. I added a simple example in the root folder of this project.
+
+* [test server](./test-server.sh)
