@@ -34,4 +34,5 @@ message GetTransferResponse {
 
 service TransferService {
   rpc CreateTransfer(CreateTransferRequest) returns (CreateTransferResponse);
+  rpc GetTransfer(GetTransferRequest) returns (GetTransferResponse);
 }
