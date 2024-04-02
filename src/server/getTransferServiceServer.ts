@@ -3,6 +3,7 @@ import {
   type sendUnaryData,
   type ServerUnaryCall,
 } from '@grpc/grpc-js'
+import pino from 'pino'
 
 import {
   type CreateTransferRequest,
@@ -12,8 +13,9 @@ import {
   type TransferServiceServer,
 } from '../generated/transfer'
 import { InMemoryDb } from './inMemoryDb'
+import Logger = pino.Logger
 
-export function getTransferServiceServer (): TransferServiceServer {
+export function getTransferServiceServer (logger: Logger): TransferServiceServer {
   const db = new InMemoryDb()
 
   const createTransfer: handleUnaryCall<CreateTransferRequest, CreateTransferResponse> = (
@@ -21,7 +23,12 @@ export function getTransferServiceServer (): TransferServiceServer {
     callback: sendUnaryData<CreateTransferResponse>,
   ): void => {
     const transferRequest: CreateTransferRequest = call.request
+    logger.info({
+      message: 'Received transfer request',
+      request: transferRequest,
+    })
     const insertedTransfer = db.insertTransfer(transferRequest)
+    logger.info(`Successfully inserted transfer with id ${insertedTransfer.id}`)
     callback(null, { transfer: insertedTransfer })
   }
 
@@ -30,7 +37,12 @@ export function getTransferServiceServer (): TransferServiceServer {
     callback: sendUnaryData<GetTransferResponse>,
   ): void => {
     const transferRequest: GetTransferRequest = call.request
+    logger.info(`Trying to find transfer with id ${transferRequest.id}`)
     const transfer = db.readTransfer(transferRequest.id)
+    logger.info({
+      message: 'Returning transfer',
+      transfer,
+    })
     callback(null, { transfer })
   }
 

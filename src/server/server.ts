@@ -22,7 +22,7 @@ const logger = pino({
   },
 })
 
-server.addService(TransferServiceService, getTransferServiceServer())
+server.addService(TransferServiceService, getTransferServiceServer(logger))
 
 server.bindAsync(
   address,
