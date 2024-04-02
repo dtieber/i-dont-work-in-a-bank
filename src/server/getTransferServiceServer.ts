@@ -2,7 +2,6 @@ import {
   type handleUnaryCall,
   type sendUnaryData,
   type ServerUnaryCall,
-  status,
 } from '@grpc/grpc-js'
 
 import {
@@ -12,20 +11,27 @@ import {
   type GetTransferResponse,
   type TransferServiceServer,
 } from '../generated/transfer'
+import { InMemoryDb } from './inMemoryDb'
 
 export function getTransferServiceServer (): TransferServiceServer {
+  const db = new InMemoryDb()
+
   const createTransfer: handleUnaryCall<CreateTransferRequest, CreateTransferResponse> = (
     call: ServerUnaryCall<CreateTransferRequest, CreateTransferResponse>,
     callback: sendUnaryData<CreateTransferResponse>,
   ): void => {
-    callback({ code: status.UNIMPLEMENTED }, null)
+    const transferRequest: CreateTransferRequest = call.request
+    const insertedTransfer = db.insertTransfer(transferRequest)
+    callback(null, { transfer: insertedTransfer })
   }
 
   const getTransfer: handleUnaryCall<GetTransferRequest, GetTransferResponse> = (
     call: ServerUnaryCall<GetTransferRequest, GetTransferResponse>,
     callback: sendUnaryData<GetTransferResponse>,
   ): void => {
-    callback({ code: status.UNIMPLEMENTED }, null)
+    const transferRequest: GetTransferRequest = call.request
+    const transfer = db.readTransfer(transferRequest.id)
+    callback(null, { transfer })
   }
 
   return {
