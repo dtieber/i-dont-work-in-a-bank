@@ -23,3 +23,7 @@ message CreateTransferRequest {
 message CreateTransferResponse {
   Transfer transfer = 1;
 }
+
+service TransferService {
+  rpc CreateTransfer(CreateTransferRequest) returns (CreateTransferResponse);
+}
